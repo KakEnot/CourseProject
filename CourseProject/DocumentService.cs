@@ -9,7 +9,6 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text;
 using System.Threading.Tasks;
 
-//https://metanit.com/sharp/aspnet5/29.4.php 
 namespace CourseProjekt
 
 {
