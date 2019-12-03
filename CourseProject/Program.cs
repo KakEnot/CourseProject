@@ -22,3 +22,5 @@ namespace CourseProject
                 .UseStartup<Startup>();
     }
 }
+//var cipher = new VigenereCipher(DocumentService.PArseWordX().ToLower(), "скорпион");
+//var s = cipher.Decrypt();
