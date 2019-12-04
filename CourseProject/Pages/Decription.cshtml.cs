@@ -16,12 +16,14 @@ namespace CourseProject.Pages
             Message = "Введите текст для расшифроки";
 
         }
-        public void OnPost(string text)
+        public void OnPost(string text, string key)
         {
-            var cipher = new VigenereCipher(text, "скорпион");
-            Message = cipher.Decrypt();
+            var cipher = new VigenereCipher(text, key);
 
+            Message = cipher.Decrypt();
+            
         }
+        
 
     }
 }
