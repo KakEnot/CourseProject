@@ -9,9 +9,21 @@ namespace CourseProject.Pages
 {
     public class IndexModel : PageModel
     {
+        public string Message { get; set; }
+
         public void OnGet()
         {
+            Message = "Введите текст для расшифроки";
 
         }
+        public void OnPost(string text, string key)
+        {
+            var cipher = new VigenereCipher(text, key);
+
+            Message = cipher.Decrypt();
+
+        }
+
+
     }
 }
