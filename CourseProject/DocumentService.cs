@@ -8,16 +8,19 @@ using System.Net;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+
 
 namespace CourseProjekt
 
 {
     public class DocumentService
     {
+        
+     
         public static string PArseWordX(Stream file)
         {
-            //using (var doc = WordprocessingDocument.Open(@"C:\Users\Пушистая булка\Desktop\Учеба\Result_v5.docx", false))
-            //using (var doc = WordprocessingDocument.Open(@"C:\Users\Admin\Desktop\Учеба\Result_v5.docx", false))
+    
             using (var doc = WordprocessingDocument.Open(file, false))
             {
                 var body = doc.MainDocumentPart.Document.Body.InnerText;
@@ -25,6 +28,10 @@ namespace CourseProjekt
             }
         }
 
+        public void SaveToDocx(string s)
+        {
+          
+        }
        
     }
 }

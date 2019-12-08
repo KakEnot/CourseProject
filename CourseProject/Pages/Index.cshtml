@@ -18,18 +18,25 @@
 
     <form method="post">
 
-            <textarea autofocus="autofocus" type="text" name="text" style="width: 720px; height: 340px; resize:none">@Model.Text</textarea>
+        <textarea autofocus="autofocus" type="text" name="text" style="width: 720px; height: 340px; resize:none">@Model.Text</textarea>
 
         @if (IndexModel.ErrorMessage != null)
         {<h1 style="color:red">@IndexModel.ErrorMessage</h1>}
         <div>
             <h2>Введите ключ</h2>
-            <input type="text" name="key" value="@IndexModel.Key"/>
+            <input type="text" name="key" value="@IndexModel.Key" />
             <input type="submit" name="Send" asp-page-handler="Text" />
         </div>
     </form>
     <h2>Преобразованный текст</h2>
     <textarea autofocus="autofocus" type="text" name="text" style="width: 720px; height: 340px; resize:none;">@Model.Message2</textarea>
+
+            <form method="post">
+                <button type="submit" asp-page-handler="Export">Export</button>
+            </form>
+          
+
+
 
 </div>
 

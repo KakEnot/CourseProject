@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using CourseProjekt;
+using Syncfusion.DocIO.DLS;
 
 namespace CourseProject.Pages
 {
@@ -17,6 +18,7 @@ namespace CourseProject.Pages
         public static string Key { get; set; }
         public string Message2 { get; set; }
         public bool Locker = false;
+        public static string Reuslt;
 
         public static string ErrorMessage { get; set; }
 
@@ -53,6 +55,7 @@ namespace CourseProject.Pages
                     }
                     var cipher = new VigenereCipher(text, key);
                     Message2 = cipher.Decrypt();
+                    Reuslt = Message2;
                     Text = text;
                     Key = key;
                 }
@@ -60,7 +63,27 @@ namespace CourseProject.Pages
             catch (Exception)
             {
                 ErrorMessage = "Уважаемый, вы не ввели ключ. Не надо так.";
+                Text = text;
+                Message2 = "";
             }
+        }
+        public FileResult OnPostExport()
+        {
+            WordDocument document = new WordDocument();
+            //Add a section & a paragraph in the empty document
+            document.EnsureMinimal();
+            //Append text to the last paragraph of the document
+            document.LastParagraph.AppendText(Reuslt);
+            //Save and close the Word document
+            using (MemoryStream ms = new MemoryStream())
+            {
+                document.Save(ms, Syncfusion.DocIO.FormatType.Docx);
+                
+                string fileName = "ResultFile.docx";
+                return File(ms.ToArray(), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            }
+
+
         }
     }
 }
