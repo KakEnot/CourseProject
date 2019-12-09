@@ -16,7 +16,7 @@ namespace CourseTest
             int sum = 17;
             
             //Act
-            var result = p.Sum(a, b);
+            var result = p.Sum(a, b);//
 
             //Assert
             Assert.AreEqual(sum, result, "—умма 7 и 10 не равна 17");
