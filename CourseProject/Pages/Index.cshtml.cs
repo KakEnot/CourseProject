@@ -16,12 +16,12 @@ namespace CourseProject.Pages
     {
         public string Text { get; set; }
         public static string Key { get; set; }
-        public string Message2 { get; set; }
         public bool Locker = false;
-        public static string Reuslt;
-
-        public static string ErrorMessage { get; set; }
-
+        public static string Result;
+        public bool IsChecked { get; set; }
+        public bool Operation { get; set; }
+        public static string ErrorMessage1 { get; set; }
+        public static string ErrorMessage2 { get; set; }
         public static string TempDocumentText { get; set; }
 
         public void OnPostUpload(IFormFile uploadfile)
@@ -36,17 +36,17 @@ namespace CourseProject.Pages
                 Locker = true;
                 Text = TempDocumentText;
             }
-
+            
         }
 
-        public void OnPostText(string text, string key)
+        public void OnPostText(string text, string key, bool operation)
         {
             try
             {
                 if (text == null) { text = ""; }
                 else
                 {
-                    ErrorMessage = null;
+                    ErrorMessage2 = null;
                     if (TempDocumentText != null)
                     {
                         text = TempDocumentText;
@@ -54,31 +54,41 @@ namespace CourseProject.Pages
                         TempDocumentText = null;
                     }
                     var cipher = new VigenereCipher(text, key);
-                    Message2 = cipher.Decrypt();
-                    Reuslt = Message2;
+                    Operation = operation;
+
+                    if (Operation)
+                    {
+
+                        Result = cipher.Encrypt();
+                    }
+                    else
+                    {
+                         Result = cipher.Decrypt();
+                    }
+                                       
                     Text = text;
                     Key = key;
                 }
             }
             catch (Exception)
             {
-                ErrorMessage = "Уважаемый, вы не ввели ключ. Не надо так.";
+                ErrorMessage2 = "Уважаемый, вы не ввели ключ. Не надо так.";
                 Text = text;
-                Message2 = "";
+                Result = "";
             }
         }
         public FileResult OnPostExport()
         {
-            //WordDocument document = new WordDocument(); //Add a section & a paragraph in the empty document
-            //document.EnsureMinimal();  //Append text to the last paragraph of the document
-            //document.LastParagraph.AppendText(Reuslt); //Save and close the Word document
+            WordDocument document = new WordDocument(); //Add a section & a paragraph in the empty document
+            document.EnsureMinimal();  //Append text to the last paragraph of the document
+            document.LastParagraph.AppendText(Result); //Save and close the Word document
 
-            //using (MemoryStream ms = new MemoryStream())
-            //{
-            //    document.Save(ms, Syncfusion.DocIO.FormatType.Docx);
-            //    string fileName = "ResultFile.docx";
-            //    return File(ms.ToArray(), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-            //}
+            using (MemoryStream ms = new MemoryStream())
+            {
+                document.Save(ms, Syncfusion.DocIO.FormatType.Docx);
+                string fileName = "ResultFile.docx";
+                return File(ms.ToArray(), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            }
         }
     }
 }
