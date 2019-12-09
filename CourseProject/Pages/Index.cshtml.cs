@@ -69,21 +69,16 @@ namespace CourseProject.Pages
         }
         public FileResult OnPostExport()
         {
-            WordDocument document = new WordDocument();
-            //Add a section & a paragraph in the empty document
-            document.EnsureMinimal();
-            //Append text to the last paragraph of the document
-            document.LastParagraph.AppendText(Reuslt);
-            //Save and close the Word document
-            using (MemoryStream ms = new MemoryStream())
-            {
-                document.Save(ms, Syncfusion.DocIO.FormatType.Docx);
-                
-                string fileName = "ResultFile.docx";
-                return File(ms.ToArray(), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-            }
+            //WordDocument document = new WordDocument(); //Add a section & a paragraph in the empty document
+            //document.EnsureMinimal();  //Append text to the last paragraph of the document
+            //document.LastParagraph.AppendText(Reuslt); //Save and close the Word document
 
-
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    document.Save(ms, Syncfusion.DocIO.FormatType.Docx);
+            //    string fileName = "ResultFile.docx";
+            //    return File(ms.ToArray(), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            //}
         }
     }
 }
