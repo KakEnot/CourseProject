@@ -14,7 +14,7 @@ namespace CourseProject.Pages
 {
     public class IndexModel : PageModel
     {
-        public string Text { get; set; }
+        public static string Text { get; set; }
         public static string Key { get; set; }
         public bool Locker = false;
         public static string Result;

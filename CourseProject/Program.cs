@@ -20,6 +20,13 @@ namespace CourseProject
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+
+        public int Sum(int a, int b)
+        {
+            return a + b;
+        }
     }
+
+   
 }
 
