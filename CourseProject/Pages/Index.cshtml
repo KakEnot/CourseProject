@@ -8,15 +8,11 @@
 
 <div>
     <h2>Введите текст</h2>
-    <div>
         @using (Html.BeginForm("Upload", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <input type="file" name="uploadfile" />
-           
-                <button class="btn btn-success" type="submit" asp-page-handler="Upload">Показать текст файла</button>
-           
+                <input type="file" name="uploadfile" />
+                <button type="submit" asp-page-handler="Upload">Показать текст файла</button>
         }
-    </div>
 
     <form method="post">
 
@@ -28,8 +24,8 @@
             <h2>Введите ключ</h2>
             <input type="text" name="key" value="@IndexModel.Key" />
 
-            <p><input type="radio" asp-route="@Model.Operation" name ="Operation" value="true" checked>Шифрование текста</p>
-            <p><input type="radio" asp-route="@Model.Operation" name ="Operation" value="false">Дешифрование текста</p>
+            <p><input type="radio" asp-route="@Model.Operation" name="Operation" value="true" checked>Шифрование текста</p>
+            <p><input type="radio" asp-route="@Model.Operation" name="Operation" value="false">Дешифрование текста</p>
 
             <input type="submit" name="Send" asp-page-handler="Text" />
         </div>
@@ -38,12 +34,8 @@
     <textarea autofocus="autofocus" type="text" name="text" style="width: 720px; height: 340px; resize:none;">@IndexModel.Result</textarea>
 
     <form method="post">
-        <button type="submit" asp-page-handler="Export">Export</button>
+        <button type="submit" asp-page-handler="Export">Сохранить</button>
     </form>
-
-
-
-
 </div>
 
 
