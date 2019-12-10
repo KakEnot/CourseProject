@@ -8,11 +8,14 @@
 
 <div>
     <h2>Введите текст</h2>
-        @using (Html.BeginForm("Upload", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
+    @using (Html.BeginForm("Upload", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
                 <input type="file" name="uploadfile" />
                 <button type="submit" asp-page-handler="Upload">Показать текст файла</button>
-        }
+            
+        </div>
+    }
 
     <form method="post">
 

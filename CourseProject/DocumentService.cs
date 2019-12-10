@@ -16,8 +16,6 @@ namespace CourseProjekt
 {
     public class DocumentService
     {
-
-
         public static string PArseWordX(Stream file)
         {
 
@@ -27,6 +25,5 @@ namespace CourseProjekt
                 return body;
             }
         }
-
     }
 }
