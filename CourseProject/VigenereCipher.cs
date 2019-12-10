@@ -13,11 +13,11 @@ namespace CourseProject
 
         public VigenereCipher(string text, string pass)
         {
-            Text = text;
-            Pass = pass;
+            Text = text.ToLower();
+            Pass = pass.ToLower();
         }
 
-        private string GetRepeatKey(string s, int n)  //генерация повторяющегося пароля
+        public static string GetRepeatKey(string s, int n)  //генерация повторяющегося пароля
         {
             var p = s;
             while (p.Length < n)
