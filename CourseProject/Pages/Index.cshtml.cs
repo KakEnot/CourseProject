@@ -26,15 +26,27 @@ namespace CourseProject.Pages
 
         public void OnPostUpload(IFormFile uploadfile)
         {
-            if (uploadfile != null)
+            try
             {
-                using (MemoryStream ms = new MemoryStream())
+
+
+                if (uploadfile != null)
                 {
-                    uploadfile.CopyTo(ms);
-                    TempDocumentText = DocumentService.PArseWordX(ms);
+                    if (!uploadfile.FileName.EndsWith(".docx")) { throw new Exception("Программа работает только с .docx"); }
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        ErrorMessage = null;
+                        uploadfile.CopyTo(ms);
+                        TempDocumentText = DocumentService.PArseWordX(ms);
+                    }
+                    Locker = true;
+                    Text = TempDocumentText;
                 }
-                Locker = true;
-                Text = TempDocumentText;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+               
             }
 
         }
