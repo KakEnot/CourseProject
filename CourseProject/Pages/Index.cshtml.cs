@@ -20,9 +20,9 @@ namespace CourseProject.Pages
         public static string Result;
         public bool IsChecked { get; set; }
         public bool Operation { get; set; }
-        public static string ErrorMessage1 { get; set; }
-        public static string ErrorMessage2 { get; set; }
+        public static string ErrorMessage { get; set; }
         public static string TempDocumentText { get; set; }
+        static string defaultAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 
         public void OnPostUpload(IFormFile uploadfile)
         {
@@ -36,43 +36,44 @@ namespace CourseProject.Pages
                 Locker = true;
                 Text = TempDocumentText;
             }
-            
+
         }
 
         public void OnPostText(string text, string key, bool operation)
         {
             try
             {
-                if (text == null) { text = ""; }
+                if (text == null) { throw new Exception("Уважаемый, переводить нечего. Текста нет."); }
+                if (key == null) { throw new Exception("Уважаемый, вы не ввели ключ. Не надо так."); }
+                if (key.ToLower().Any(x => !Char.IsLetter(x) || !defaultAlphabet.Contains(x))) { throw new Exception("Уважаемый, в ключе могут быть только русские буквы."); }
+
+                ErrorMessage = null;
+                if (TempDocumentText != null)
+                {
+                    text = TempDocumentText;
+                    Text = TempDocumentText;
+                    TempDocumentText = null;
+                }
+                var cipher = new VigenereCipher(text, key);
+                Operation = operation;
+
+                if (Operation)
+                {
+
+                    Result = cipher.Encrypt();
+                }
                 else
                 {
-                    ErrorMessage2 = null;
-                    if (TempDocumentText != null)
-                    {
-                        text = TempDocumentText;
-                        Text = TempDocumentText;
-                        TempDocumentText = null;
-                    }
-                    var cipher = new VigenereCipher(text, key);
-                    Operation = operation;
-
-                    if (Operation)
-                    {
-
-                        Result = cipher.Encrypt();
-                    }
-                    else
-                    {
-                         Result = cipher.Decrypt();
-                    }
-                                       
-                    Text = text;
-                    Key = key;
+                    Result = cipher.Decrypt();
                 }
+
+                Text = text;
+                Key = key;
             }
-            catch (Exception)
+
+            catch (Exception x)
             {
-                ErrorMessage2 = "Уважаемый, вы не ввели ключ. Не надо так.";
+                ErrorMessage = x.Message;
                 Text = text;
                 Result = "";
             }

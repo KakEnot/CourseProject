@@ -10,42 +10,41 @@
     <h2>Введите текст</h2>
     @using (Html.BeginForm("Upload", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-    <div class="inputcontainer">
-        <div style="border:1px solid red;">
-            <input type="file" name="uploadfile"/>
-            @*<p><input type="file" style="display:block; width:80px; height:6px; box-sizing:border-box; opacity:0" />Выберите файл</p>*@
+        <div class="inputcontainer">
+            <div>
+                <input type="file" name="uploadfile" />
 
-        </div>
+
+            </div>
             <button type="submit" asp-page-handler="Upload">Показать текст файла</button>
-        
-    </div>
+        </div>
     }
 
-        <form method="post">
+    <form method="post">
 
-            <textarea autofocus="autofocus" type="text" name="text" style="width: 720px; height: 340px; resize:none; margin:5px 0 0;">@IndexModel.Text</textarea>
+        <textarea autofocus="autofocus" type="text" name="text" style="width: 720px; height: 340px; resize:none; margin:5px 0 0;">@IndexModel.Text</textarea>
 
-            @if (IndexModel.ErrorMessage2 != null)
-            {<h2 style="color:red">@IndexModel.ErrorMessage2</h2>}
-           
-            <div class="inputcontainer2">
-                               
-                <div>
-                    <p><h2>Введите ключ</h2></p>
-                    <input type="text" name="key" value="@IndexModel.Key" />
-                    <input type="submit" name="Send" asp-page-handler="Text" />
-                </div>
+        @if (IndexModel.ErrorMessage != null)
+        {<h2 style="color:red">@IndexModel.ErrorMessage</h2>}
 
-                <div style="margin:  37px 0 0;">
-                  
-                    <p><input type="radio" asp-route="@Model.Operation" name="Operation" value="true" checked>Шифрование текста</p>
-                    <p><input type="radio" asp-route="@Model.Operation" name="Operation" value="false">Дешифрование текста</p>
+        <div class="inputcontainer2">
 
-                </div>
+            <div>
+                <p><h2>Введите ключ</h2></p>
+                <input type="text" name="key" value="@IndexModel.Key" />
+                <input type="submit" name="Send" asp-page-handler="Text" />
+            </div>
+
+            <div style="margin:  37px 0 0;">
+
+                <p><input type="radio" asp-route="@Model.Operation" name="Operation" value="true" checked>Шифрование текста</p>
+                <p><input type="radio" asp-route="@Model.Operation" name="Operation" value="false">Дешифрование текста</p>
 
             </div>
 
-        </form>
+        </div>
+
+    </form>
     <h2>Преобразованный текст</h2>
     <textarea autofocus="autofocus" type="text" name="text" style="width: 720px; height: 340px; resize:none;">@IndexModel.Result</textarea>
 
