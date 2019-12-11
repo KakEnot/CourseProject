@@ -11,9 +11,10 @@
     @using (Html.BeginForm("Upload", "Index", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
     <div class="inputcontainer">
-        <div style="border:1px solid red">
-            <input type="file" name="uploadfile"  class="inputfile"/>
-            <label for="file">Выберите файл</label>
+        <div style="border:1px solid red;">
+            <input type="file" name="uploadfile"/>
+            @*<p><input type="file" style="display:block; width:80px; height:6px; box-sizing:border-box; opacity:0" />Выберите файл</p>*@
+
         </div>
             <button type="submit" asp-page-handler="Upload">Показать текст файла</button>
         
